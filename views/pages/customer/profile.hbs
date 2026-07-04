@@ -25,19 +25,19 @@
   <!-- Tabs -->
   <div class="mt-8 border-b border-slate-200 flex gap-6 text-sm">
     <button
-      hx-get="/profile/appointments?filter=upcoming"
+      hx-get="/customer/profile/appointments?isUpcoming=true"
       hx-target="#appointments"
       hx-swap="innerHTML"
-      class="pb-3 -mb-px border-b-2 border-accent-500 text-slate-900 font-medium"
+      class="pb-3 -mb-px border-b-2 border-accent-500 text-slate-900 font-medium cursor-pointer transition"
     >
       Upcoming
       <span class="ml-1 text-xs text-slate-400">({{counts.upcoming}})</span>
     </button>
     <button
-      hx-get="/profile/appointments?filter=past"
+      hx-get="/customer/profile/appointments?isUpcoming=false"
       hx-target="#appointments"
       hx-swap="innerHTML"
-      class="pb-3 -mb-px border-b-2 border-transparent text-slate-500 hover:text-slate-900 transition"
+      class="pb-3 -mb-px border-b-2 border-transparent text-slate-500 hover:text-slate-900 transition cursor-pointer"
     >
       Past <span class="ml-1 text-xs text-slate-400">({{counts.past}})</span>
     </button>
@@ -65,7 +65,7 @@
           <h3 class="font-semibold text-slate-900 truncate">
             {{this.business.name}}
           </h3>
-          {{#if this.upcoming}}
+          {{#if this.isUpcoming}}
           <span
             class="inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-xs font-medium"
           >

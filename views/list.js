@@ -105,12 +105,12 @@ export default {
   profileAppointments: [
     {
       id: 101, month: 'MAY', day: '09', service: 'Dental Cleaning',
-      timeLabel: '10:00 AM', upcoming: true,
+      timeLabel: '10:00 AM', isUpcoming: true,
       business: { id: 1, name: 'Ahmad Dental', address: '55 Ahmad Street' },
     },
     {
       id: 102, month: 'APR', day: '28', service: 'Haircut',
-      timeLabel: '02:30 PM', upcoming: false,
+      timeLabel: '02:30 PM', isUpcoming: false,
       business: { id: 2, name: 'Beauty Salon', address: '123 Main Street' },
     },
   ],
