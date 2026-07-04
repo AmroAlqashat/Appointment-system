@@ -1,0 +1,233 @@
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <a
+    href="/customer/profile"
+    class="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-900"
+    >← Back to profile</a
+  >
+
+  <div
+    class="mt-4 rounded-2xl border border-slate-200 bg-white shadow-soft overflow-hidden"
+  >
+    <div class="px-6 sm:px-8 py-6 border-b border-slate-200">
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        Edit profile
+      </h1>
+      <p class="mt-1 text-sm text-slate-500">
+        Update your personal information and preferences.
+      </p>
+    </div>
+
+    <form
+      hx-put="/profile"
+      hx-target="#form-feedback"
+      hx-swap="innerHTML"
+      enctype="multipart/form-data"
+      class="p-6 sm:p-8 space-y-8"
+    >
+      <!-- Avatar -->
+      <div class="flex items-center gap-5">
+        <div
+          class="h-20 w-20 rounded-full bg-slate-900 text-accent-400 flex items-center justify-center text-2xl font-bold"
+        >
+          {{customer.initials}}
+        </div>
+        <div>
+          <label
+            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium px-4 py-2 text-sm cursor-pointer transition"
+          >
+            <input type="file" name="avatar" accept="image/*" class="hidden" />
+            Upload new photo
+          </label>
+          <p class="mt-2 text-xs text-slate-500">JPG or PNG. Max 2MB.</p>
+        </div>
+      </div>
+
+      <!-- Personal info -->
+      <div>
+        <h2
+          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+        >
+          Personal info
+        </h2>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >First name</label
+            >
+            <input
+              type="text"
+              name="firstName"
+              value="{{customer.firstName}}"
+              required
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Last name</label
+            >
+            <input
+              type="text"
+              name="lastName"
+              value="{{customer.lastName}}"
+              required
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-medium text-slate-700"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="email"
+              value="{{customer.email}}"
+              required
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-medium text-slate-700"
+              >Phone</label
+            >
+            <input
+              type="tel"
+              name="phone"
+              value="{{customer.phone}}"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div>
+        <h2
+          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+        >
+          Notifications
+        </h2>
+        <div class="mt-4 space-y-3">
+          <label
+            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              name="emailReminders"
+              checked
+              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
+            />
+            <div>
+              <p class="text-sm font-medium text-slate-900">Email reminders</p>
+              <p class="text-xs text-slate-500">
+                Get reminded 24 hours before each appointment.
+              </p>
+            </div>
+          </label>
+          <label
+            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              name="smsReminders"
+              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
+            />
+            <div>
+              <p class="text-sm font-medium text-slate-900">SMS reminders</p>
+              <p class="text-xs text-slate-500">
+                Text message alerts for upcoming visits.
+              </p>
+            </div>
+          </label>
+          <label
+            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
+          >
+            <input
+              type="checkbox"
+              name="marketing"
+              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
+            />
+            <div>
+              <p class="text-sm font-medium text-slate-900">Product updates</p>
+              <p class="text-xs text-slate-500">
+                Occasional emails about new features.
+              </p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <h2
+          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+        >
+          Change password
+        </h2>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-medium text-slate-700"
+              >Current password</label
+            >
+            <input
+              type="password"
+              name="currentPassword"
+              autocomplete="current-password"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >New password</label
+            >
+            <input
+              type="password"
+              name="newPassword"
+              autocomplete="new-password"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Confirm new password</label
+            >
+            <input
+              type="password"
+              name="confirmPassword"
+              autocomplete="new-password"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="form-feedback" class="empty:hidden"></div>
+
+      <div
+        class="flex items-center justify-between pt-4 border-t border-slate-200"
+      >
+        <button
+          type="button"
+          hx-delete="/customer/profile"
+          hx-confirm="Delete your account? This cannot be undone."
+          class="text-sm font-medium text-red-600 hover:text-red-700"
+        >
+          Delete account
+        </button>
+        <div class="flex gap-2">
+          <a
+            href="/customer/profile"
+            class="rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium px-4 py-2.5 text-sm transition"
+            >Cancel</a
+          >
+          <button
+            type="submit"
+            class="rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 text-sm transition"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

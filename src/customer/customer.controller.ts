@@ -1,54 +1,38 @@
 import { Controller, Get, Render } from '@nestjs/common';
-import { CustomerService } from './customer.service';
+import list from '../../views/list';
 
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
-
   @Get('dashboard')
   @Render('pages/customer/dashboard')
-  findAll() {
+  renderDashboard() {
     return {
-      customer: { firstName: 'Amro' },
-      categories: [
-        'Hair & Beauty',
-        'Health & Wellness',
-        'Fitness & Training',
-        'Consulting',
-        'Auto Services',
-      ],
-      businesses: [
-        {
-          id: 1,
-          name: 'Ahmad Dental',
-          firstLetter: 'A',
-          category: 'Health & Wellness',
-          distanceInKM: '5',
-          description: 'Dental Cleaning, Root Canal',
-          rating: '4.5',
-          reviewCount: '200',
-        },
-        {
-          id: 2,
-          name: 'Beauty Salon',
-          firstLetter: 'B',
-          category: 'Hair & Beauty',
-          distanceInKM: '3',
-          description: 'Haircuts, Styling, Makeup',
-          rating: '4.7',
-          reviewCount: '150',
-        },
-        {
-          id: 3,
-          name: 'Fitness Center',
-          firstLetter: 'F',
-          category: 'Fitness & Training',
-          distanceInKM: '7',
-          description: 'Yoga, Pilates, Weightlifting',
-          rating: '4.6',
-          reviewCount: '180',
-        },
-      ],
+      customer: list.customer,
+      categories: list.categories,
+      businesses: list.businesses,
+    };
+  }
+
+  @Get('profile')
+  @Render('pages/customer/profile')
+  renderProfile() {
+    const upcoming = list.profileAppointments.filter(
+      (appointment) => appointment.upcoming,
+    ).length;
+    const past = list.profileAppointments.length - upcoming;
+
+    return {
+      customer: list.profileCustomer,
+      counts: { upcoming, past },
+      appointments: list.profileAppointments,
+    };
+  }
+
+  @Get('profile/edit')
+  @Render('pages/customer/edit')
+  renderEditProfile() {
+    return {
+      customer: list.editProfileCustomer,
     };
   }
 }

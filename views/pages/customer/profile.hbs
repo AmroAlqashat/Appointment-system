@@ -1,0 +1,135 @@
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <!-- Profile header -->
+  <div
+    class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft flex flex-col sm:flex-row sm:items-center gap-5"
+  >
+    <div
+      class="h-16 w-16 rounded-full bg-slate-900 text-accent-400 flex items-center justify-center text-xl font-bold"
+    >
+      {{customer.initials}}
+    </div>
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        {{customer.fullName}}
+      </h1>
+      <p class="text-sm text-slate-500">{{customer.email}}</p>
+    </div>
+    <a
+      href="/customer/profile/edit"
+      class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium px-4 py-2 text-sm transition"
+    >
+      Edit profile
+    </a>
+  </div>
+
+  <!-- Tabs -->
+  <div class="mt-8 border-b border-slate-200 flex gap-6 text-sm">
+    <button
+      hx-get="/profile/appointments?filter=upcoming"
+      hx-target="#appointments"
+      hx-swap="innerHTML"
+      class="pb-3 -mb-px border-b-2 border-accent-500 text-slate-900 font-medium"
+    >
+      Upcoming
+      <span class="ml-1 text-xs text-slate-400">({{counts.upcoming}})</span>
+    </button>
+    <button
+      hx-get="/profile/appointments?filter=past"
+      hx-target="#appointments"
+      hx-swap="innerHTML"
+      class="pb-3 -mb-px border-b-2 border-transparent text-slate-500 hover:text-slate-900 transition"
+    >
+      Past <span class="ml-1 text-xs text-slate-400">({{counts.past}})</span>
+    </button>
+  </div>
+
+  <!-- Appointments list -->
+  <div id="appointments" class="mt-6 space-y-3">
+    {{#each appointments}}
+    <article
+      class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft flex flex-col sm:flex-row sm:items-center gap-4"
+    >
+      <div
+        class="flex-shrink-0 h-14 w-14 rounded-xl bg-slate-100 flex flex-col items-center justify-center text-center"
+      >
+        <span class="text-xs font-medium uppercase text-accent-600"
+          >{{this.month}}</span
+        >
+        <span class="text-lg font-bold text-slate-900 leading-none"
+          >{{this.day}}</span
+        >
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h3 class="font-semibold text-slate-900 truncate">
+            {{this.business.name}}
+          </h3>
+          {{#if this.upcoming}}
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-xs font-medium"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+            Confirmed
+          </span>
+          {{else}}
+          <span
+            class="inline-flex items-center rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-xs font-medium"
+            >Completed</span
+          >
+          {{/if}}
+        </div>
+        <p class="mt-1 text-sm text-slate-600">
+          {{this.service}} · {{this.timeLabel}}
+        </p>
+        <p class="text-xs text-slate-500">{{this.business.address}}</p>
+      </div>
+
+      {{#if this.upcoming}}
+      <div class="flex gap-2 sm:flex-shrink-0">
+        <button
+          hx-get="/appointments/{{this.id}}/reschedule"
+          hx-target="#main"
+          hx-swap="innerHTML"
+          class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium px-3 py-2 text-xs transition"
+        >
+          Reschedule
+        </button>
+        <button
+          hx-delete="/appointments/{{this.id}}"
+          hx-confirm="Cancel this appointment? This cannot be undone."
+          hx-target="closest article"
+          hx-swap="outerHTML swap:300ms"
+          class="inline-flex items-center justify-center rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-medium px-3 py-2 text-xs transition"
+        >
+          Cancel
+        </button>
+      </div>
+      {{else}}
+      <a
+        href="/businesses/{{this.business.id}}"
+        class="inline-flex items-center justify-center rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium px-3 py-2 text-xs transition"
+      >
+        Book again
+      </a>
+      {{/if}}
+    </article>
+    {{else}}
+    <div
+      class="text-center py-16 rounded-2xl border-2 border-dashed border-slate-200"
+    >
+      <div
+        class="mx-auto h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl"
+      >
+        📭
+      </div>
+      <p class="mt-3 text-sm font-medium text-slate-900">No appointments yet</p>
+      <a
+        href="/businesses"
+        class="mt-3 inline-flex text-sm font-medium text-accent-600 hover:text-accent-700"
+        >Browse businesses →</a
+      >
+    </div>
+    {{/each}}
+  </div>
+</section>

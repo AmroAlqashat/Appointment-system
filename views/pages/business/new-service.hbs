@@ -1,0 +1,179 @@
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <a
+    href="/business/dashboard"
+    class="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-900"
+    >← Back to dashboard</a
+  >
+
+  <div
+    class="mt-4 rounded-2xl border border-slate-200 bg-white shadow-soft overflow-hidden"
+  >
+    <div class="px-6 sm:px-8 py-6 border-b border-slate-200">
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        New service
+      </h1>
+      <p class="mt-1 text-sm text-slate-500">
+        Add a bookable service to your menu.
+      </p>
+    </div>
+
+    <form
+      hx-post="/business/services"
+      hx-target="#form-feedback"
+      hx-swap="innerHTML"
+      class="p-6 sm:p-8 space-y-8"
+    >
+      <!-- Basics -->
+      <div>
+        <h2
+          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+        >
+          Basics
+        </h2>
+        <div class="mt-4 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Service name</label
+            >
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="e.g. Men's haircut"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Category</label
+            >
+            <select
+              name="category"
+              required
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm bg-white focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            >
+              <option value="">Choose a category…</option>
+              <option>Hair & Beauty</option>
+              <option>Health & Wellness</option>
+              <option>Fitness & Training</option>
+              <option>Consulting</option>
+              <option>Auto Services</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Description</label
+            >
+            <textarea
+              name="description"
+              rows="4"
+              placeholder="What does this service include? Any prep notes for the customer?"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition resize-y"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing & duration -->
+      <div>
+        <h2
+          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
+        >
+          Pricing & duration
+        </h2>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Price</label
+            >
+            <div class="mt-1 relative">
+              <span
+                class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"
+                >$</span
+              >
+              <input
+                type="number"
+                name="price"
+                min="0"
+                step="1"
+                required
+                placeholder="0"
+                class="w-full rounded-lg border border-slate-300 pl-7 pr-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+              />
+            </div>
+            <p class="mt-1 text-xs text-slate-500">
+              Set to 0 for free consultations.
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Duration</label
+            >
+            <select
+              name="duration"
+              required
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm bg-white focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            >
+              <option value="15">15 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="45">45 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="90">1.5 hours</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Buffer time after</label
+            >
+            <select
+              name="buffer"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm bg-white focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            >
+              <option value="0" selected>No buffer</option>
+              <option value="5">5 minutes</option>
+              <option value="10">10 minutes</option>
+              <option value="15">15 minutes</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500">
+              Block time between back-to-back bookings.
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >Max per day</label
+            >
+            <input
+              type="number"
+              name="dailyCap"
+              min="0"
+              placeholder="Unlimited"
+              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="form-feedback" class="empty:hidden"></div>
+
+      <div
+        class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200"
+      >
+        <a
+          href="/business/dashboard"
+          class="rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-medium px-4 py-2.5 text-sm transition"
+          >Cancel</a
+        >
+        <button
+          type="submit"
+          class="rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 text-sm transition"
+        >
+          Create service
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

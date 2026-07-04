@@ -1,0 +1,26 @@
+{{#if slots.length}}
+  <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+    {{#each slots}}
+      <button
+        hx-post="/bookings"
+        hx-vals='{"businessId":"{{../business.id}}","slot":"{{this.iso}}"}'
+        hx-target="#main"
+        hx-swap="innerHTML"
+        {{#if this.taken}}disabled{{/if}}
+        class="rounded-lg border px-3 py-2.5 text-sm font-medium transition
+               {{#if this.taken}}
+                 border-slate-100 bg-slate-50 text-slate-400 cursor-not-allowed line-through
+               {{else}}
+                 border-slate-200 bg-white text-slate-900 hover:border-accent-500 hover:bg-accent-50 hover:text-accent-700
+               {{/if}}">
+        {{this.label}}
+      </button>
+    {{/each}}
+  </div>
+{{else}}
+  <div class="text-center py-12">
+    <div class="mx-auto h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">📅</div>
+    <p class="mt-3 text-sm font-medium text-slate-900">No slots available</p>
+    <p class="mt-1 text-sm text-slate-500">Try picking a different date.</p>
+  </div>
+{{/if}}

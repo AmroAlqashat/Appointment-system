@@ -1,5 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
+import list from '../views/list';
 
 @Controller()
 export class AppController {
@@ -8,6 +9,6 @@ export class AppController {
   @Get()
   @Render('pages/landing')
   root() {
-    return { message: 'hello world' };
+    return { message: list.landingMessage };
   }
 }
