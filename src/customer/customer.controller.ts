@@ -31,6 +31,7 @@ export class CustomerController {
       customer: list.profileCustomer,
       counts: { upcoming, past },
       appointments: filteredAppointments,
+      activeFilter: 'upcoming',
     };
   }
 
@@ -46,6 +47,7 @@ export class CustomerController {
     return {
       appointments: filteredAppointments,
       layout: false,
+      activeFilter: isUpcoming ? 'upcoming' : 'past'
     };
   }
 

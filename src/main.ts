@@ -17,8 +17,12 @@ async function bootstrap() {
       defaultLayout: 'main',
       layoutsDir: join(__dirname, '..', 'views', 'layouts'),
       partialsDir: join(__dirname, '..', 'views', 'partials'),
+      helpers: {
+        eq: (a: any, b: any) => a === b,
+      },
     }),
   );
+
   app.setViewEngine('hbs');
   
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));

@@ -31,6 +31,7 @@
     "@types/hbs": "^4.0.5",
     "class-transformer": "^0.5.1",
     "express-handlebars": "^8.0.3",
+    "hbs": "^4.2.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
