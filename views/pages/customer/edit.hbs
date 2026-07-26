@@ -18,7 +18,7 @@
     </div>
 
     <form
-      hx-put="/profile"
+      hx-patch="/customer/profile/edit"
       hx-target="#form-feedback"
       hx-swap="innerHTML"
       enctype="multipart/form-data"
@@ -94,107 +94,6 @@
               type="tel"
               name="phone"
               value="{{customer.phone}}"
-              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Preferences -->
-      <div>
-        <h2
-          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
-        >
-          Notifications
-        </h2>
-        <div class="mt-4 space-y-3">
-          <label
-            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              name="emailReminders"
-              checked
-              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
-            />
-            <div>
-              <p class="text-sm font-medium text-slate-900">Email reminders</p>
-              <p class="text-xs text-slate-500">
-                Get reminded 24 hours before each appointment.
-              </p>
-            </div>
-          </label>
-          <label
-            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              name="smsReminders"
-              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
-            />
-            <div>
-              <p class="text-sm font-medium text-slate-900">SMS reminders</p>
-              <p class="text-xs text-slate-500">
-                Text message alerts for upcoming visits.
-              </p>
-            </div>
-          </label>
-          <label
-            class="flex items-start gap-3 rounded-lg border border-slate-200 p-4 hover:bg-slate-50 cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              name="marketing"
-              class="mt-0.5 rounded border-slate-300 text-accent-500 focus:ring-accent-500"
-            />
-            <div>
-              <p class="text-sm font-medium text-slate-900">Product updates</p>
-              <p class="text-xs text-slate-500">
-                Occasional emails about new features.
-              </p>
-            </div>
-          </label>
-        </div>
-      </div>
-
-      <!-- Password -->
-      <div>
-        <h2
-          class="text-sm font-semibold uppercase tracking-wider text-slate-500"
-        >
-          Change password
-        </h2>
-        <div class="mt-4 grid sm:grid-cols-2 gap-4">
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium text-slate-700"
-              >Current password</label
-            >
-            <input
-              type="password"
-              name="currentPassword"
-              autocomplete="current-password"
-              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-slate-700"
-              >New password</label
-            >
-            <input
-              type="password"
-              name="newPassword"
-              autocomplete="new-password"
-              class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-slate-700"
-              >Confirm new password</label
-            >
-            <input
-              type="password"
-              name="confirmPassword"
-              autocomplete="new-password"
               class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
             />
           </div>

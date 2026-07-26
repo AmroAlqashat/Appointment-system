@@ -1,6 +1,5 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import list from '../../views/list';
 
 @Controller('auth')
 export class AuthController {
@@ -9,12 +8,18 @@ export class AuthController {
   @Get('login')
   @Render('pages/auth/login')
   login() {
-    return { ...list.authLogin };
+    return { username: 'new user', password: '' };
   }
 
   @Get('signup')
   @Render('pages/auth/signup')
   signup() {
-    return { ...list.authSignup };
+    return {};
+  }
+
+  @Get('signup/fields')
+  @Render('partials/signup-business-fields')
+  singupField(@Query('userType') userType: string) {
+    return { isBusiness: userType === 'business', layout: false }
   }
 }

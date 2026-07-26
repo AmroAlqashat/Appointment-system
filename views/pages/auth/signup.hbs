@@ -1,20 +1,12 @@
 <section class="min-h-[calc(100vh-4rem)] grid lg:grid-cols-2">
   <!-- Left: marketing panel -->
-  <aside
-    class="hidden lg:flex flex-col justify-between bg-slate-900 text-white p-12 relative overflow-hidden"
-  >
-    <div
-      class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-accent-500/20 blur-3xl"
-    ></div>
-    <div
-      class="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"
-    ></div>
+  <aside class="hidden lg:flex flex-col justify-between bg-slate-900 text-white p-12 relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-accent-500/20 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"></div>
 
     <a href="/" class="relative flex items-center gap-2">
       <span
-        class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-900 font-bold"
-        >S</span
-      >
+        class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-900 font-bold">S</span>
       <span class="font-semibold">Slotly</span>
     </a>
 
@@ -58,75 +50,54 @@
       </p>
 
       <!-- Account type toggle: HTMX swaps the conditional fields -->
-      <div
-        class="mt-6 inline-flex w-full rounded-lg border border-slate-200 bg-slate-50 p-1"
-      >
-        <button
-          type="button"
-          hx-get="/signup/fields?type=customer"
-          hx-target="#type-fields"
+      <div class="mt-6 inline-flex w-full rounded-lg border border-slate-200 bg-slate-50 p-1">
+        <button type="button" hx-get="/auth/signup/fields?userType=customer" hx-target="#type-fields"
           hx-swap="innerHTML"
           hx-on:click="this.classList.add('bg-white','shadow-sm','text-slate-900');this.nextElementSibling.classList.remove('bg-white','shadow-sm','text-slate-900')"
-          class="flex-1 px-3 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-slate-900 transition"
-        >
+          class="flex-1 px-3 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-slate-900 transition cursor-pointer">
           Customer
         </button>
-        <button
-          type="button"
-          hx-get="/signup/fields?type=business"
-          hx-target="#type-fields"
+        <button type="button" hx-get="/auth/signup/fields?userType=business" hx-target="#type-fields"
           hx-swap="innerHTML"
           hx-on:click="this.classList.add('bg-white','shadow-sm','text-slate-900');this.previousElementSibling.classList.remove('bg-white','shadow-sm','text-slate-900')"
-          class="flex-1 px-3 py-2 text-sm font-medium rounded-md text-slate-600 transition"
-        >
+          class="flex-1 px-3 py-2 text-sm font-medium rounded-md text-slate-600 transition cursor-pointer">
           Business
         </button>
       </div>
 
-      <form
-        hx-post="/signup"
-        hx-target="#signup-result"
-        hx-swap="outerHTML"
-        class="mt-6 space-y-4"
-      >
+      <form hx-post="/signup" hx-target="#signup-result" hx-swap="outerHTML" class="mt-6 space-y-4">
         <!-- Hidden user type — set by your controller based on toggle/button -->
         <input type="hidden" name="type" value="{{userType}}" />
 
         <div>
-          <label class="block text-sm font-medium text-slate-700"
-            >Full name</label
-          >
-          <input
-            type="text"
-            name="fullName"
-            required
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-          />
+          <label class="block text-sm font-medium text-slate-700">First name</label>
+          <input type="text" name="firstName" required
+            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700">Last name</label>
+          <input type="text" name="LastName" required
+            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition" />
         </div>
 
         <div>
           <label class="block text-sm font-medium text-slate-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-          />
+          <input type="email" name="email" required placeholder="you@example.com"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition" />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-slate-700"
-            >Password</label
-          >
-          <input
-            type="password"
-            name="password"
-            required
-            minlength="8"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
-          />
+          <label class="block text-sm font-medium text-slate-700">Password</label>
+          <input type="password" name="password" required minlength="8"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition" />
           <p class="mt-1 text-xs text-slate-500">At least 8 characters.</p>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-slate-900 mb-1">Confirm password</label>
+          <input type="password" name="confirmPassword"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none" />
         </div>
 
         <!-- Conditional fields slot — server renders business fields when ?type=business -->
@@ -134,10 +105,8 @@
           {{#if isBusiness}} {{> signup-business-fields}} {{/if}}
         </div>
 
-        <button
-          type="submit"
-          class="w-full rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 text-sm transition"
-        >
+        <button type="submit"
+          class="w-full rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium py-2.5 text-sm transition cursor-pointer">
           Create account
         </button>
 
@@ -146,11 +115,7 @@
 
       <p class="mt-6 text-sm text-slate-600 text-center">
         Already have an account?
-        <a
-          href="/login"
-          class="font-medium text-accent-600 hover:text-accent-700"
-          >Log in</a
-        >
+        <a href="/auth/login" class="font-medium text-accent-600 hover:text-accent-700">Log in</a>
       </p>
     </div>
   </div>

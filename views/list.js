@@ -19,7 +19,7 @@ export default {
   dashboardAppointments: [
     { id: 201, month: 'MAY', day: '08', service: 'Dental Cleaning', timeLabel: '10:00 AM', customer: { name: 'Sara Ali' } },
     { id: 202, month: 'MAY', day: '09', service: 'Teeth Whitening', timeLabel: '01:30 PM', customer: { name: 'Omar Khaled' } },
-    { id: 203, month: 'MAY', day: '10', service: 'Consultation', timeLabel: '04:00 PM', customer: { name: 'Lina Samir' } },
+    { id: 203, month: 'MAY', day: '11', service: 'Consultation', timeLabel: '04:00 PM', customer: { name: 'Lina Samir' } },
   ],
 
   dashboardCalendar: {
