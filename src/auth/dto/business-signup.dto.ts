@@ -1,5 +1,6 @@
-import { IsEmail, IsString, IsStrongPassword, MaxLength, MinLength, IsEnum } from 'class-validator';
+import { IsEmail, IsString, IsStrongPassword, MaxLength, MinLength, IsEnum, Matches } from 'class-validator';
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator'
+import { BusinessCategory } from '@prisma/client'
 
 function IsConfirmPassword(property: string, validationOptions: ValidationOptions) {
     return function (object: Object, propertyName: string) {
@@ -27,25 +28,16 @@ function IsConfirmPassword(property: string, validationOptions: ValidationOption
     }
 }
 
-enum BusinessCategory {
-    BEAUTY = 'Hair & Beauty',
-    HEALTH = 'Health & Wellness',
-    FITNESS = 'Fitness & Training',
-    CONSULTING = 'Consulting',
-    AUTO_SERVICES = 'Auto Services',
-    OTHERS = 'Others'
-}
-
 export class BusinessSignupDto {
     @IsString()
     @MaxLength(200)
     @MinLength(3)
-    firstName!: string;
+    ownerFirstName!: string;
 
     @IsString()
     @MaxLength(200)
     @MinLength(3)
-    lastName!: string;
+    ownerLastName!: string;
 
     @IsEmail()
     email!: string;
@@ -59,8 +51,31 @@ export class BusinessSignupDto {
     confirmPassword!: string;
 
     @IsString()
+    @MaxLength(200)
+    @MinLength(2)
     businessName!: string;
 
     @IsEnum(BusinessCategory)
     businessCategory!: BusinessCategory;
+
+    @IsString()
+    @MaxLength(200)
+    @MinLength(5)
+    address!: string;
+
+    @IsString()
+    @MaxLength(200)
+    @MinLength(10)
+    description!: string;
+
+    @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+        message: 'Opening time must be in HH:mm format'
+    })
+    openingTime!: string;
+
+
+    @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+        message: 'Closing time must be in HH:mm format'
+    })
+    closingTime!: string;
 }

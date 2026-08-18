@@ -20,48 +20,64 @@ model Customer {
   password     String        @db.VarChar(250)
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  businesses   Business[]
   appointments Appointment[]
 }
 
 model Business {
-  id           Int           @id @default(autoincrement())
-  ownerId      Int
-  owner        Customer      @relation(fields: [ownerId], references: [id])
-  name         String
-  category     String
-  description  String?
-  address      String
-  rating       Decimal       @default(0)
-  reviewCount  Int           @default(0)
-  opensAt      String
-  closesAt     String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  appointments Appointment[]
-  availability Availability[]
+  id               Int              @id @default(autoincrement())
+  ownerFirstName   String
+  ownerLastName    String
+  email            String           @unique @db.VarChar(250)
+  password         String           @db.VarChar(250)
+  businessName     String
+  businessCategory BusinessCategory
+  description      String
+  address          String
+  rating           Decimal          @default(0) @db.Decimal(2, 1)
+  reviewCount      Int              @default(0)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  appointments     Appointment[]
+  availability     Availability[]
 }
 
 model Appointment {
-  id               Int      @id @default(autoincrement())
-  customerId       Int
-  customer         Customer @relation(fields: [customerId], references: [id])
-  businessId       Int
-  business         Business @relation(fields: [businessId], references: [id])
-  serviceName      String
-  appointmentDate  DateTime @db.Date
-  startTime        String
-  endTime          String
-  status           String   @default("confirmed")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id              Int               @id @default(autoincrement())
+  customerId      Int
+  customer        Customer          @relation(fields: [customerId], references: [id])
+  businessId      Int
+  business        Business          @relation(fields: [businessId], references: [id])
+  serviceName     String
+  appointmentDate DateTime          @db.Date
+  startTime       String
+  endTime         String
+  status          AppointmentStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 model Availability {
-  id          Int      @id @default(autoincrement())
-  businessId  Int
-  business    Business @relation(fields: [businessId], references: [id])
-  dayOfWeek   Int
-  startTime   String
-  endTime     String
+  id         Int      @id @default(autoincrement())
+  businessId Int
+  business   Business @relation(fields: [businessId], references: [id])
+  dayOfWeek  Int
+  startTime  String
+  endTime    String
+
+  @@unique([businessId, dayOfWeek])
+}
+
+enum BusinessCategory {
+  HAIR_AND_BEAUTY
+  HEALTH_AND_WELLNESS
+  FITNESS_AND_TRAINING
+  CONSULTING
+  AUTO_SERVICES
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
 }
