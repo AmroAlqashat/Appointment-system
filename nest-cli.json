@@ -5,10 +5,6 @@
   "compilerOptions": {
     "assets": [
       {
-        "include": "../views/**/*",
-        "outDir": "dist/views"
-      },
-      {
         "include": "../public/**/*",
         "outDir": "dist/public"
       }
