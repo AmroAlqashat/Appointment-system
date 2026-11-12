@@ -2,7 +2,6 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import bcrypt from 'bcrypt';
-import { PasswordDontMatch } from 'src/common/exceptions/passwords-dont-match.exception';
 import { buildWeeklyAvailability } from '../common/helper/build-weekly-availabilty';
 import { PrismaService } from '../prisma/prisma.service';
 import { BusinessSignupDto } from './dto/business-signup.dto';
@@ -18,9 +17,8 @@ export class AuthService {
   }
 
   async createCustomer(customerSignupDto: CustomerSignupDto) {
-    const { firstName, lastName, email, password, confirmPassword } = customerSignupDto;
-
-    if (password !== confirmPassword) throw new PasswordDontMatch()
+    const { firstName, lastName, email, password } = customerSignupDto;
+    const lowerEmail = email.trim().toLowerCase();
 
     try {
       const hashedPassword = await bcrypt.hash(password, this.saltRounds);
@@ -29,12 +27,12 @@ export class AuthService {
         data: {
           firstName,
           lastName,
-          email,
+          email: lowerEmail,
           password: hashedPassword
         }
       });
 
-      return "Customer created sucessfully";
+      return { customer, message: "Customer created sucessfully" };
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
         throw new ConflictException('Email already in use');
@@ -44,11 +42,11 @@ export class AuthService {
   }
 
   async createBusiness(businessSignupDto: BusinessSignupDto) {
-    const { ownerFirstName,
+    const {
+      ownerFirstName,
       ownerLastName,
       email,
       password,
-      confirmPassword,
       businessName,
       businessCategory,
       description,
@@ -57,17 +55,17 @@ export class AuthService {
       closingTime
     } = businessSignupDto;
 
-    if (password !== confirmPassword) throw new PasswordDontMatch();
+    const lowerEmail = email.trim().toLowerCase();
 
     try {
       const hashedPassword = await bcrypt.hash(password, this.saltRounds);
 
-      const business = await this.prisma.$transaction(async (tx) => {
+      const result = await this.prisma.$transaction(async (tx) => {
         const business = await tx.business.create({
           data: {
             ownerFirstName,
             ownerLastName,
-            email,
+            email: lowerEmail,
             password: hashedPassword,
             businessName,
             businessCategory,
@@ -81,10 +79,10 @@ export class AuthService {
           data: buildWeeklyAvailability(business.id, openingTime, closingTime)
         });
 
-        return "Business created sucessfully";
+        return { business, message: "Business created sucessfully" };
       });
 
-      return business;
+      return result;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
         throw new ConflictException('Email already in use');
