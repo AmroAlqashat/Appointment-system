@@ -31,12 +31,12 @@ function IsConfirmPassword(property: string, validationOptions: ValidationOption
 export class BusinessSignupDto {
   @IsString()
   @MaxLength(200)
-  @MinLength(3)
+  @MinLength(2)
   ownerFirstName!: string;
 
   @IsString()
   @MaxLength(200)
-  @MinLength(3)
+  @MinLength(2)
   ownerLastName!: string;
 
   @IsEmail()

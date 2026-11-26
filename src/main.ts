@@ -1,13 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create(AppModule);
+  const config = app.get(ConfigService)
 
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.enableCors({
+    origin: config.get<string>('CLIENT_URL'),
+    credentials: true,
+  })
+
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,

@@ -11,9 +11,10 @@ import Joi from 'joi';
 @Module({
   imports: [AuthModule, CustomerModule, BusinessModule, PrismaModule, ConfigModule.forRoot({
     isGlobal: true, validationSchema: Joi.object({
-      SALT_ROUNDS: Joi.number().integer().min(4).max(15).default(15),
+      SALT_ROUNDS: Joi.number().integer().min(4).max(15).default(12),
       JWT_SECRET: Joi.string().required(),
       DATABASE_URL: Joi.string().required(),
+      CLIENT_URL: Joi.string().uri().default('http://localhost:3001'),
     }),
   })],
   controllers: [AppController],

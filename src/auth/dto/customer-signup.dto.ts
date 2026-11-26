@@ -30,12 +30,12 @@ function IsConfirmPassword(property: string, validationOptions: ValidationOption
 export class CustomerSignupDto {
   @IsString({ message: "First name must be valid string." })
   @MaxLength(200, { message: "First name cannot exceed 200 characters." })
-  @MinLength(3, { message: "First name must be at least 3 characters long." })
+  @MinLength(2, { message: "First name must be at least 2 characters long." })
   firstName!: string;
 
   @IsString({ message: "Last name must be valid string." })
   @MaxLength(200, { message: "Last name cannot exceed 200 characters." })
-  @MinLength(3, { message: "Last name must be at least 3 characters long." })
+  @MinLength(2, { message: "Last name must be at least 2 characters long." })
   lastName!: string;
 
   @IsEmail()
